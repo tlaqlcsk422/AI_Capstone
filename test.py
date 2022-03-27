@@ -12,12 +12,16 @@ from tensorflow.python.client import device_lib
 import matplotlib.pyplot as plt
 from tensorflow.keras.layers import Conv2D, Flatten,MaxPooling2D,Dense, Dropout
 from tensorflow.keras.models import Sequential
-#from tensorflow_core.python.data.ops.dataset_ops import AUTOTUNE
+from tensorflow_core.python.data.ops.dataset_ops import AUTOTUNE
 from tensorflow_examples.models.pix2pix import pix2pix
 import time
 
-img_path1 = "../../시설 작물 질병 진단 이미지/Training/05.상추_0.정상"
-img_path2 = "../../시설 작물 질병 진단 이미지/Training/05.상추_1.질병"
+AUTOTUNE = tf.data.AUTOTUNE
+
+# img_path1 = "../../시설 작물 질병 진단 이미지/Training/05.상추_0.정상"
+# img_path2 = "../../시설 작물 질병 진단 이미지/Training/05.상추_1.질병"
+img_path1 = "../../시설 작물 질병 진단 이미지/Training/상추.정상"
+img_path2 = "../../시설 작물 질병 진단 이미지/Training/상추.질병"
 
 #이미지 받아오기
 size = 256,256
@@ -44,8 +48,8 @@ Y= np.array(Y)
 print(X.shape)
 print(Y.shape)
 
-X_train, X_test =
-y_train, y_test =
+X_train, X_test = train_test_split(X, test_size = 0.25)
+y_train, y_test = train_test_split(Y, test_size = 0.25)
 
 BUFFER_SIZE = 1000
 BATCH_SIZE = 1

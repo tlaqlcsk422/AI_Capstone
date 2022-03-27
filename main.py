@@ -31,6 +31,7 @@ img_path2 = "./시설 작물 질병 진단 이미지/Training/05.상추_1.질병
 label_path1 = "./시설 작물 질병 진단 이미지/Training/[라벨]05.상추_0.정상"
 label_path2 = "./시설 작물 질병 진단 이미지/Training/[라벨]05.상추_1.질병"
 
+
 #이미지 받아오기
 size = 256,256
 X = []
@@ -61,18 +62,27 @@ for file in os.listdir(label_path1):
     with open(dir_path, "r", encoding="utf8") as f:
         contents = f.read() # string 타입
         json_data = json.loads(contents)
-    Y.append(json_data["annotations"]["risk"])
+    #Y.append(json_data["annotations"]["risk"])
+    Y.append(json_data["annotations"]["grow"])
+    # Y.append(json_data["annotations"]["disease"])
 
 for file in os.listdir(label_path2):
     dir_path = label_path2 + "/"  + file
     with open(dir_path, "r", encoding="utf8") as f:
         contents = f.read() # string 타입
         json_data = json.loads(contents)
-    Y.append(json_data["annotations"]["risk"])
+    #Y.append(json_data["annotations"]["risk"])
+    Y.append(json_data["annotations"]["grow"])
+    #Y.append(json_data["annotations"]["disease"])
+
 
 Y = np.array(Y)
 # plt.hist(Y, bins=4, label='Lettuce Risk')
-# plt.show()
+plt.hist(Y, bins=4, label='Lettuce grow')
+# plt.hist(Y, bins=4, label='Lettuce disease')
+plt.savefig('grow_hist.png')
+#plt.savefig('desease_hist.png')
+
 
 Y = tf.keras.utils.to_categorical(Y)
 print(Y.shape)
@@ -114,7 +124,8 @@ plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc=0)
 
-plt.show()
+plt.savefig('grow_loss.png')
+#plt.savefig('disease_loss.png')
 
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
@@ -122,4 +133,6 @@ plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train','test'], loc=0)
 
-plt.show()
+plt.savefig('grow_accuracy.png')
+
+#plt.savefig('disease_accuracy.png')
