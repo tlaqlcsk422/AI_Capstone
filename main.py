@@ -14,8 +14,8 @@ from tensorflow.keras.layers import Conv2D, Flatten,MaxPooling2D,Dense, Dropout
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.utils import to_categorical
-print("dddddd")
-print("dddd")
+
+
 print(device_lib.list_local_devices())
 
 # gpu 확인하기
@@ -78,7 +78,8 @@ Y = tf.keras.utils.to_categorical(Y)
 print(Y.shape)
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, stratify=Y, random_state= 42, test_size = 0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, stratify=Y,
+                                                    random_state= 42, test_size = 0.25)
 
 
 X_train = X_train/255.0
